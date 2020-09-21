@@ -1,0 +1,23 @@
+{% load static %}
+{% include 'backend/partials/_backend_head.html' %}
+        <div class="wrapper">
+            {% include 'backend/partials/_backend_header_top.html' %}
+            <div class="page-wrap">
+                {% include 'backend/partials/_backend_site_nav.html' %}
+
+                {% block content %}
+
+                {% endblock %}
+
+                {% include 'backend/partials/_backend_chats.html' %}
+            </div>
+        </div>
+        {% include 'backend/partials/_backend_setting.html' %}
+        {% include 'backend/partials/_backend_js.html' %}
+
+
+
+
+
+
+
