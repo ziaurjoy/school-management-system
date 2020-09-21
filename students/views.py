@@ -1,36 +1,35 @@
 from django.shortcuts import render
-
 from .models import StudentInfo
-from .forms import StudentCreateForms
-
-from django.views.generic import CreateView
+from .forms import StudentCreateForm
+from django.views import generic
 
 
 # Create your views here.
 
+class StudentList(generic.ListView):
+    model = StudentInfo
+    context_object_name = 'students'
+    template_name = 'student/list.html'
 
-class CreateStudent(CreateView):
+
+class CreateStudent(generic.CreateView):
+    form_class = StudentCreateForm
     model = StudentInfo
     template_name = 'student/create.html'
-    fields = "__all__"
-    success_url = 'student-list'
+    success_url = 'http://localhost:8000/student/list'
 
 
+class UpdateStudent(generic.UpdateView):
+    form_class = StudentCreateForm
+    model = StudentInfo
+    template_name = 'student/create.html'
+    success_url = 'http://localhost:8000/student/list'
 
-# def create_student(request):
-#     forms = StudentCreateForms()
-#     if request.method == 'POST':
-#         forms = StudentCreateForms(request.POST)
-#         if forms.is_valid():
-#             name = forms.cleaned_data['name']
-#             age = forms.cleaned_data['age']
-#             gender = forms.cleaned_data['gender']
-#             StudentInfo.objects.create(
-#                 name = name,
-#                 age = age,
-#                 gender = gender
-#             )
-#     context = {'forms': forms}
-#     return render(request,'student/create.html',context)
+
+class StudentDelete(generic.DeleteView):
+    model = StudentInfo
+    context_object_name = 'delete_id'
+    template_name = 'student/delete.html'
+    success_url = 'http://localhost:8000/student/list'
 
 
